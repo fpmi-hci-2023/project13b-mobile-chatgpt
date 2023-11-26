@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct TaskManagerApp: App {
     @StateObject private var appRootManager = AppRootManager()
-    
+
     var body: some Scene {
         WindowGroup {
             Group {
@@ -19,7 +19,7 @@ struct TaskManagerApp: App {
                     EntranceView()
 //                        .transition(.opacity)
 //                        .animation(.easeInOut(duration: 0.3))
-                    
+
                 case .main:
                     MainView()
                 }

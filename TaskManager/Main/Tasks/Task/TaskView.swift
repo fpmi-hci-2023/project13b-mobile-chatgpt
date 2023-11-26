@@ -16,23 +16,23 @@ struct TaskView: View {
         df.dateStyle = .medium
         return df
     }()
-    
-    init(task: Binding<Task>){
+
+    init(task: Binding<Task>) {
         self._task = task
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             let sizeOfSecondView = geometry.size.height / 2
             ZStack {
                 Color.background.ignoresSafeArea(.all)
-                
+
                 VStack {
                     HStack {
                         Text("Name")
                             .font(.system(size: 22))
                             .foregroundColor(.white)
-                        
+
                         Spacer()
                     }
                     .padding([.leading, .top], 16)
@@ -43,12 +43,12 @@ struct TaskView: View {
                         .underlined()
                         .foregroundColor(.white)
                         .padding([.leading, .trailing, .bottom], 16)
-                    
+
                     HStack {
                         Text("Initiator")
                             .font(.system(size: 22))
                             .foregroundColor(.white)
-                        
+
                         Spacer()
                     }
                     .padding([.leading, .top], 16)
@@ -59,16 +59,16 @@ struct TaskView: View {
                         .underlined()
                         .foregroundColor(.white)
                         .padding([.leading, .trailing, .bottom], 16)
-                    
-                    HStack{
+
+                    HStack {
                         Text("Date")
                             .font(.system(size: 22))
                             .foregroundColor(.white)
-                        
+
                         Spacer()
                     }
                     .padding(.leading, 16)
-                    
+
                     HStack {
                         Text("\(dateFormatter.string(from: task.date))")
                             .padding([.bottom], 16)
@@ -77,22 +77,22 @@ struct TaskView: View {
                             .onTapGesture {
                                 self.showsDatePicker.toggle()
                             }
-                        
+
                         Spacer()
                     }
                     .underlined()
                     .padding([.leading, .trailing, .bottom], 16)
-                    
+
                     Spacer()
-                    
+
                 }
                 .background(
                     LinearGradient.mainGradient
                 )
-                
+
                 VStack {
                     Spacer()
-                    
+
                     Rectangle()
                         .frame(height: sizeOfSecondView)
                         .foregroundColor(.white)
@@ -100,12 +100,12 @@ struct TaskView: View {
                     //                        .cornerRadius(30)
                         .overlay {
                             VStack {
-                                
+
                                 HStack {
                                     Text("Coordinators")
                                         .font(.system(size: 22))
                                         .foregroundColor(.gray)
-                                    
+
                                     ForEach(task.coordinators, id: \.self) { coordinator in
                                         Text(coordinator)
                                             .contextMenu {
@@ -118,11 +118,11 @@ struct TaskView: View {
                                                 }
                                             }
                                     }
-                                    
+
                                     Spacer()
                                 }
                                 .padding([.leading, .top], 16)
-                                
+
                                 TextField("", text: $tempCoordinator, axis: .vertical)
                                     .placeholder(when: tempCoordinator.isEmpty) {
                                         Text("Coordinators").foregroundColor(.gray)
@@ -133,32 +133,32 @@ struct TaskView: View {
                                         task.coordinators.append(tempCoordinator)
                                         tempCoordinator = ""
                                     }
-                                
+
                                 HStack {
                                     Text("Description")
                                         .font(.system(size: 22))
                                         .foregroundColor(.gray)
-                                    
+
                                     Spacer()
                                 }
                                 .padding([.leading, .top], 16)
-                                
+
                                 TextField("", text: $task.description, axis: .vertical)
                                     .placeholder(when: task.description.isEmpty) {
                                         Text("Description").foregroundColor(.gray)
                                     }
                                     .underlined(color: .gray)
                                     .padding([.leading, .trailing, .bottom], 16)
-                                
+
                                 HStack {
                                     Text("State")
                                         .font(.system(size: 22))
                                         .foregroundColor(.gray)
-                                    
+
                                     Spacer()
                                 }
                                 .padding([.leading, .top], 16)
-                                
+
                                 Picker("", selection: $task.status) {
                                     Text("In-progress").tag(0)
                                     Text("Approved").tag(1)
@@ -166,12 +166,12 @@ struct TaskView: View {
                                 }
                                 .pickerStyle(.segmented)
                                 .padding([.leading, .trailing, .bottom], 16)
-                                
+
                                 Spacer()
                             }
                         }
                 }
-                
+
             }
             .edgesIgnoringSafeArea(.bottom)
             .sheet(isPresented: $showsDatePicker) {
@@ -192,8 +192,7 @@ struct TaskView_Previews: PreviewProvider {
                         next: 1,
                         status: 0,
                         date: Date() - 1)
-        
+
         TaskView(task: .constant(task))
     }
 }
-

@@ -12,21 +12,21 @@ struct LogInView: View {
     @ObservedObject var viewModel = LogInViewModel()
     @State private var showingAlert = false
     @EnvironmentObject private var appRootManager: AppRootManager
-    
+
     var body: some View {
         ZStack {
             Color.background.ignoresSafeArea()
-            
+
             VStack {
                 LogoView()
-                
+
                 TextField("Username", text: $viewModel.username)
                     .font(.system(size: 17, weight: Font.Weight.medium, design: .default))
                     .padding()
                     .background(Color.white)
                     .cornerRadius(6)
                     .padding(.bottom, 10)
-                
+
                 TextField("Email", text: $viewModel.email)
                     .font(.system(size: 17, weight: Font.Weight.medium, design: .default))
                     .padding()
@@ -40,14 +40,14 @@ struct LogInView: View {
                             viewModel.email = validString
                         }
                     }
-                
+
                 SecureField("Password", text: $viewModel.password)
                     .font(.system(size: 17, weight: Font.Weight.medium, design: .default))
                     .padding()
                     .background(Color.white)
                     .cornerRadius(6)
                     .padding(.bottom, 20)
-                
+
                 Button(action: {
                     viewModel.tryLogin()
                 }) {
@@ -60,17 +60,17 @@ struct LogInView: View {
                         .cornerRadius(6)
                 }
                 .onChange(of: viewModel.result) { result in
-                    switch result{
-                    case .success(_):
+                    switch result {
+                    case .success:
                         appRootManager.currentRoot = .main
-                    case .failure(_):
+                    case .failure:
                         showingAlert.toggle()
                     case .none:
                         fatalError()
                     }
                 }
                 .alert(isPresented: $showingAlert) {
-                    switch viewModel.result{
+                    switch viewModel.result {
                     case .failure(let error):
                         return Alert(
                             title: Text("Error"),
@@ -81,7 +81,7 @@ struct LogInView: View {
                         return Alert(title: Text(""))
                     }
                 }
-                
+
                 Button(action: {
                     // Reset password
                 }) {

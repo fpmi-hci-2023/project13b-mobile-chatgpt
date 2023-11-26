@@ -18,7 +18,7 @@ struct Task: Codable, Equatable {
         self.status = status
         self.date = date
     }
-    
+
     init() {
         self.coordinators = []
         self.description = ""
@@ -29,7 +29,7 @@ struct Task: Codable, Equatable {
         self.status = 0
         self.date = Date()
     }
-    
+
     var coordinators: [String]
     var description: String
     var id: String
@@ -37,7 +37,7 @@ struct Task: Codable, Equatable {
     var name: String
     var next: Int
     var status: Int
-    
+
     var date: Date
 }
 

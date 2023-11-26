@@ -13,11 +13,11 @@ class ProfileViewModel: ObservableObject {
     @Published var about: String = ""
     @Published var phone: String = ""
     @Published var email: String = ""
-    
+
     init() {
         getUserInfo()
     }
-    
+
     func getUserInfo() {
         photo = "person.fill"
         name = "Someone"

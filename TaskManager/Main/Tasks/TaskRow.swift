@@ -10,10 +10,10 @@ import SwiftUI
 struct TaskRow: View {
     @State private var showTask = false
     @Binding var task: Task
-    
+
     var body: some View {
         VStack {
-            HStack{
+            HStack {
                 Image(systemName: "list.clipboard")
                     .resizable()
                     .scaledToFit()
@@ -24,7 +24,7 @@ struct TaskRow: View {
                     .background(LinearGradient.mainGradient)
                     .cornerRadius(10)
                     .padding(10)
-                
+
                 VStack(alignment: .leading, spacing: 6) {
                     Text(task.name)
                         .font(.headline)
@@ -32,7 +32,7 @@ struct TaskRow: View {
                     Text(task.initiator)
                         .font(.subheadline)
                 }
-                
+
                 Spacer()
             }
         }

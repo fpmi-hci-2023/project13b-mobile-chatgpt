@@ -8,7 +8,7 @@
 import Foundation
 
 class AddTaskViewModel: ObservableObject {
-    func addTask(task: Task){
+    func addTask(task: Task) {
         APIManager.shared.allTasks.append(task)
     }
 }

@@ -11,7 +11,7 @@ struct UnderlineView: ViewModifier {
     let spacing: CGFloat
     let height: CGFloat
     let color: Color
-    
+
     func body(content: Content) -> some View {
         VStack(spacing: spacing) {
             content

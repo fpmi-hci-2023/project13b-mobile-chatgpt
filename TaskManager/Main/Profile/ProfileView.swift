@@ -10,10 +10,10 @@ import SwiftUI
 struct ProfileView: View {
     @ObservedObject var viewModel = ProfileViewModel()
     @State private var searchText = ""
-    
+
     var body: some View {
         VStack {
-            
+
             Image(systemName: viewModel.photo)
                 .resizable()
                 .foregroundColor(.main)
@@ -22,19 +22,19 @@ struct ProfileView: View {
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.gray, lineWidth: 1.5))
                 .padding(.top, 20)
-            
+
             Text("Someone")
                 .font(.system(size: 20, design: .default))
                 .foregroundColor(.black)
                 .padding(.top, 10)
-            
+
             HStack {
                 VStack(alignment: .leading) {
                     Text("About")
                         .font(.system(size: 20, design: .default))
                         .foregroundColor(.black)
                         .padding(.bottom, 5)
-                    
+
                     TextField("", text: $viewModel.about, axis: .vertical)
                         .placeholder(when: viewModel.about.isEmpty) {
                             Text("About").foregroundColor(.black)
@@ -47,20 +47,20 @@ struct ProfileView: View {
                 Spacer()
             }
             .padding(.horizontal)
-            
+
             HStack {
                 VStack(alignment: .leading) {
                     Text("Contact")
                         .font(.system(size: 20, design: .default))
                         .foregroundColor(.black)
                         .padding(.bottom, 5)
-                    
+
                     HStack {
                         Text("Phone: ")
                             .font(.system(size: 17, weight: Font.Weight.medium, design: .default))
                             .foregroundColor(.black)
                             .padding(.bottom, 5)
-                        
+
                         TextField("", text: $viewModel.phone)
                             .placeholder(when: viewModel.phone.isEmpty) {
                                 Text("Phone").foregroundColor(.black)
@@ -70,8 +70,8 @@ struct ProfileView: View {
                             .foregroundColor(.black)
                             .padding(.bottom, 5)
                     }
-                    
-                    HStack{
+
+                    HStack {
                         Text("Email: ")
                             .font(.system(size: 17, weight: Font.Weight.medium, design: .default))
                             .foregroundColor(.black)
@@ -85,12 +85,12 @@ struct ProfileView: View {
                             .foregroundColor(.black)
                             .padding(.bottom, 5)
                     }
-                    
+
                 }
                 Spacer()
             }
             .padding(.horizontal)
-            
+
             Spacer()
         }
     }

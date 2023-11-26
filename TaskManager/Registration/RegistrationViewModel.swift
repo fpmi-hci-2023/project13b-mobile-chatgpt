@@ -28,8 +28,8 @@ class RegistrationViewModel: ObservableObject {
     @Published var username: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
-    @Published var result: Result<String, RegistrationError>? = nil
-    
+    @Published var result: Result<String, RegistrationError>?
+
     func tryRegister() {
         result = .success("Nice!")
 //        result = .failure(.badEmail)

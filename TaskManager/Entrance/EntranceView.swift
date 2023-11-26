@@ -10,15 +10,15 @@ import SwiftUI
 struct EntranceView: View {
     @State private var showLogInView = false
     @State private var showRegistrationView = false
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.background.ignoresSafeArea()
-                
+
                 VStack {
                     LogoView()
-                    
+
                     Button(action: {
                         showLogInView.toggle()
                     }) {

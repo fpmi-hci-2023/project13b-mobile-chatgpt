@@ -8,9 +8,9 @@
 import Foundation
 
 final class AppRootManager: ObservableObject {
-    
+
     @Published var currentRoot: AppRoots = .entrance
-    
+
     enum AppRoots {
         case entrance
         case main

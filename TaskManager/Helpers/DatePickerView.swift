@@ -10,15 +10,15 @@ import SwiftUI
 struct DatePickerView: View {
     @Binding var selectedDate: Date
     @Binding var showDatePicker: Bool
-    
+
     var body: some View {
         NavigationView {
             VStack {
                 DatePicker("", selection: $selectedDate, displayedComponents: .date)
                     .datePickerStyle(.wheel)
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     showDatePicker.toggle()
                 }) {

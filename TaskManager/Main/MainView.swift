@@ -21,7 +21,7 @@ struct MainView: View {
             .tabItem {
                 Label("Home", systemImage: "house")
             }
-            
+
             VStack {
                 FindView()
                 Spacer()
@@ -33,7 +33,7 @@ struct MainView: View {
             .tabItem {
                 Label("Find", systemImage: "magnifyingglass")
             }
-            
+
             VStack {
                 ProfileView()
                 Spacer()
@@ -45,7 +45,7 @@ struct MainView: View {
             .tabItem {
                 Label("Profile", systemImage: "person")
             }
-            
+
         }
         .accentColor(.main)
     }

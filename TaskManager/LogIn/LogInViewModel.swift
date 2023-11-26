@@ -24,12 +24,12 @@ enum LoginError: Error {
     }
 }
 
-class LogInViewModel: ObservableObject {    
+class LogInViewModel: ObservableObject {
     @Published var username: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
-    @Published var result: Result<String, LoginError>? = nil
-    
+    @Published var result: Result<String, LoginError>?
+
     func tryLogin() {
         result = .success("Nice!")
 //        result = .failure(.badEmail)
