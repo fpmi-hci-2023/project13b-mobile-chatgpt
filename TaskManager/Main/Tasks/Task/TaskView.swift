@@ -184,7 +184,16 @@ struct TaskView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskView(task: .constant(Task(coordinators: ["Artyom", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Artyom", name: "Test 1", next: 1, status: 0, date: Date() - 1)))
+        let task = Task(coordinators: ["Artyom", "Pavel"],
+                        description: "Some description",
+                        id: UUID().uuidString,
+                        initiator: "Artyom",
+                        name: "Test 1",
+                        next: 1,
+                        status: 0,
+                        date: Date() - 1)
+        
+        TaskView(task: .constant(task))
     }
 }
 
