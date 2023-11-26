@@ -20,7 +20,7 @@ struct ProfileView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 100, height: 100)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color(red: 230 / 255, green: 230 / 255, blue: 232 / 255), lineWidth: 1.5))
+                .overlay(Circle().stroke(Color.gray, lineWidth: 1.5))
                 .padding(.top, 20)
             
             Text("Someone")
