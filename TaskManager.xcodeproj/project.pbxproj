@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6777596FCEA4382509A446F4 /* Pods_TaskManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E63E8F29CA569E9B09A52A /* Pods_TaskManagerTests.framework */; };
+		9A2841042B39E2090057961D /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2841032B39E2090057961D /* UserInfoModel.swift */; };
 		9A6190F32B138B130085CA58 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9A6190F22B138B120085CA58 /* .swiftlint.yml */; };
 		9A6B255E2B0512C7006A14B9 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B255D2B0512C7006A14B9 /* TaskView.swift */; };
 		9A6B25752B07E422006A14B9 /* UnderlineTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B25742B07E422006A14B9 /* UnderlineTextFieldView.swift */; };
@@ -57,6 +58,7 @@
 		0912A35D05742BEF40C297C5 /* Pods_TaskManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1904DE6699379AF901A33FC2 /* Pods-TaskManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManager.release.xcconfig"; path = "Target Support Files/Pods-TaskManager/Pods-TaskManager.release.xcconfig"; sourceTree = "<group>"; };
 		7365985B474856926D950632 /* Pods-TaskManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManager.debug.xcconfig"; path = "Target Support Files/Pods-TaskManager/Pods-TaskManager.debug.xcconfig"; sourceTree = "<group>"; };
+		9A2841032B39E2090057961D /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		9A6190F22B138B120085CA58 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9A6B255D2B0512C7006A14B9 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		9A6B25742B07E422006A14B9 /* UnderlineTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextFieldView.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				9A6B25762B08B10B006A14B9 /* UnderLineView.swift */,
 				9A6B257D2B090F12006A14B9 /* RoundedCorner.swift */,
 				9A6B257F2B090F29006A14B9 /* DatePickerView.swift */,
+				9A2841032B39E2090057961D /* UserInfoModel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				9AFFB7B92B01341E0029EAF5 /* Color.swift in Sources */,
 				9AFFB7872B010F1A0029EAF5 /* TaskManagerApp.swift in Sources */,
 				9AFFB7982B0116650029EAF5 /* LogInView.swift in Sources */,
+				9A2841042B39E2090057961D /* UserInfoModel.swift in Sources */,
 				9A6B25792B08E376006A14B9 /* TaskViewModel.swift in Sources */,
 				9AFFB7B72B0133140029EAF5 /* ProfileView.swift in Sources */,
 				9AFFB7AC2B012CF70029EAF5 /* Task.swift in Sources */,

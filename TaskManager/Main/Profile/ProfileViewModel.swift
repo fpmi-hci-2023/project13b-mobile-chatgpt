@@ -20,9 +20,13 @@ class ProfileViewModel: ObservableObject {
 
     func getUserInfo() {
         photo = "person.fill"
-        name = "Someone"
+        name = APIManager.shared.userInfo?.username ?? ""
         about = "Some information"
         phone = "(555) 123-4567"
-        email = "someone@gmail.com"
+        email = APIManager.shared.userInfo?.email ?? ""
+    }
+
+    func logout() {
+        APIManager.shared.logout()
     }
 }

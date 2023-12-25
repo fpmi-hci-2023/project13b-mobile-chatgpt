@@ -27,19 +27,19 @@ struct LogInView: View {
                     .cornerRadius(6)
                     .padding(.bottom, 10)
 
-                TextField("Email", text: $viewModel.email)
-                    .font(.system(size: 17, weight: Font.Weight.medium, design: .default))
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(6)
-                    .padding(.bottom, 10)
-                    .keyboardType(.emailAddress)
-                    .onReceive(Just(viewModel.email)) { newValue in
-                        let validString = newValue.filter { "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ._-+$!~&=#[]@".contains($0) }
-                        if validString != newValue {
-                            viewModel.email = validString
-                        }
-                    }
+//                TextField("Email", text: $viewModel.email)
+//                    .font(.system(size: 17, weight: Font.Weight.medium, design: .default))
+//                    .padding()
+//                    .background(Color.white)
+//                    .cornerRadius(6)
+//                    .padding(.bottom, 10)
+//                    .keyboardType(.emailAddress)
+//                    .onReceive(Just(viewModel.email)) { newValue in
+//                        let validString = newValue.filter { "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ._-+$!~&=#[]@".contains($0) }
+//                        if validString != newValue {
+//                            viewModel.email = validString
+//                        }
+//                    }
 
                 SecureField("Password", text: $viewModel.password)
                     .font(.system(size: 17, weight: Font.Weight.medium, design: .default))

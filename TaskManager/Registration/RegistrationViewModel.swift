@@ -7,10 +7,11 @@
 
 import Foundation
 
-enum RegistrationError: Error {
+enum RegistrationError: Error, Equatable {
     case badUsername
     case badEmail
     case badPassword
+    case unknown(String)
 
     var errorMessage: String {
         switch self {
@@ -20,6 +21,8 @@ enum RegistrationError: Error {
             return "Wrong Email"
         case .badPassword:
             return "Wrong Password"
+        case .unknown(let message):
+            return "Something went wrong: \(message)"
         }
     }
 }
@@ -31,7 +34,10 @@ class RegistrationViewModel: ObservableObject {
     @Published var result: Result<String, RegistrationError>?
 
     func tryRegister() {
-        result = .success("Nice!")
-//        result = .failure(.badEmail)
+        APIManager.shared.register(username: username, email: email, password: password) { error in
+            DispatchQueue.main.async {
+                self.result = error == nil ? .success("Nice!") : .failure(.unknown(error!))
+            }
+        }
     }
 }

@@ -91,6 +91,13 @@ struct ProfileView: View {
             }
             .padding(.horizontal)
 
+            Button {
+                viewModel.logout()
+            } label: {
+                Text("Logout")
+                    .foregroundColor(Color.black)
+            }
+
             Spacer()
         }
     }
