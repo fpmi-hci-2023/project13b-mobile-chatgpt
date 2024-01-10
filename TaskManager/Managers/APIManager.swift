@@ -14,7 +14,7 @@ final class APIManager: ObservableObject {
     static let shared = APIManager()
 
     private init() {
-        allTasks = getTasks()
+        getTasks()
     }
 
     func logout() {
@@ -156,7 +156,165 @@ final class APIManager: ObservableObject {
         task.resume()
     }
 
-    func getTasks() -> [Task] {
+    func addTask(coordinators: [String], description: String, name: String) {
+        let urlString = "https://auth.hci.richardhere.dev/api/v1/add"
+        let url = URL(string: urlString)
+
+        struct Task: Codable {
+            let coordinators: [String]
+            let description: String
+            let name: String
+        }
+
+        let task = Task(coordinators: coordinators, description: description, name: name)
+
+        do {
+            let encoder = JSONEncoder()
+            let requestData = try encoder.encode(task)
+
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = requestData
+
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        print("success")
+                    } else {
+                        print("Unexpected status code: \(httpResponse.statusCode)")
+                    }
+                }
+            }
+
+            task.resume()
+        } catch {
+            print("Error encoding JSON: \(error)")
+        }
+    }
+
+    func approveTask(coordinator: String, taskId: String) {
+        let urlString = "https://auth.hci.richardhere.dev/api/v1/approve/\(coordinator)/\(taskId)"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        let task = URLSession.shared.dataTask(with: request) { (_, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    print("success")
+                } else {
+                    print("Unexpected status code: \(httpResponse.statusCode)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+
+    func declineTask(coordinator: String, taskId: String) {
+        let urlString = "https://auth.hci.richardhere.dev/api/v1/decline/\(coordinator)/\(taskId)"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        let task = URLSession.shared.dataTask(with: request) { (_, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    print("success")
+                } else {
+                    print("Unexpected status code: \(httpResponse.statusCode)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+
+    func deleteTask(with id: String) {
+        let urlString = "https://auth.hci.richardhere.dev/api/v1/delete/\(id)"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+
+        let task = URLSession.shared.dataTask(with: request) { (_, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    print("Successfully deleted the task")
+                } else {
+                    print("Unexpected status code: \(httpResponse.statusCode)")
+                }
+            }
+        }
+
+        task.resume()
+    }
+
+    func getTasks() {
+        let url = URL(string: "https://auth.hci.richardhere.dev/api/v1/tasks")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                let tasks = try decoder.decode([Task].self, from: data)
+
+                DispatchQueue.main.async {
+                    self.allTasks = tasks
+                }
+            } catch {
+                print("Error decoding JSON: \(error)")
+            }
+        }
+
+        task.resume()
+    }
+
+    func getTasksForTest() -> [Task] {
         let testTasks = [
             Task(coordinators: ["Artyom", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Artyom", name: "Test 1", next: 1, status: 0, date: Date() - 1),
             Task(coordinators: ["Artyom"], description: "Some description", id: UUID().uuidString, initiator: "Pavel", name: "Test 2", next: 2, status: 0, date:  Date() - 2),

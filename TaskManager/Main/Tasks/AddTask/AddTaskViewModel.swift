@@ -10,5 +10,6 @@ import Foundation
 class AddTaskViewModel: ObservableObject {
     func addTask(task: Task) {
         APIManager.shared.allTasks.append(task)
+        APIManager.shared.addTask(coordinators: task.coordinators, description: task.description, name: task.name)
     }
 }
