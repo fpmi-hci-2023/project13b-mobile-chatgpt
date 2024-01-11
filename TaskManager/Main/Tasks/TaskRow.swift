@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskRow: View {
     @State private var showTask = false
-    @Binding var task: Task
+    @Binding var task: TaskModel
 
     var body: some View {
         VStack {
@@ -54,6 +54,6 @@ struct TaskRow: View {
 
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TaskRow(task: .constant(Task(coordinators: ["Artyom", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Artyom", name: "Test 1", next: 1, status: 0, date: Date())))
+        TaskRow(task: .constant(TaskModel(coordinators: ["Artyom", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Artyom", name: "Test 1", next: 1, status: 0, date: Date())))
     }
 }

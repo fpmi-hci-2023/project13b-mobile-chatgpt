@@ -8,7 +8,7 @@
 import Foundation
 
 class FindViewModel: ObservableObject {
-    @Published var filteredTasks: [Task] = []
+    @Published var filteredTasks: [TaskModel] = []
 
     init() {
         filter(search: "")

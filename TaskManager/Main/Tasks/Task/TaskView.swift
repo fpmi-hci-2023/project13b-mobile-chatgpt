@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskView: View {
-    @Binding var task: Task
+    @Binding var task: TaskModel
     @State var tempCoordinator = ""
     @State var showsDatePicker = false
     let dateFormatter: DateFormatter = {
@@ -17,7 +17,7 @@ struct TaskView: View {
         return df
     }()
 
-    init(task: Binding<Task>) {
+    init(task: Binding<TaskModel>) {
         self._task = task
     }
 
@@ -70,7 +70,7 @@ struct TaskView: View {
                     .padding(.leading, 16)
 
                     HStack {
-                        Text("\(dateFormatter.string(from: task.date))")
+                        Text("\(dateFormatter.string(from: task.date ?? Date()))")
                             .padding([.bottom], 16)
                             .padding(.top, 1)
                             .foregroundColor(.white)
@@ -174,17 +174,17 @@ struct TaskView: View {
 
             }
             .edgesIgnoringSafeArea(.bottom)
-            .sheet(isPresented: $showsDatePicker) {
-                DatePickerView(selectedDate: $task.date, showDatePicker: $showsDatePicker)
-                    .presentationDetents([.height(sizeOfSecondView)])
-            }
+//            .sheet(isPresented: $showsDatePicker) {
+//                DatePickerView(selectedDate: $task.date, showDatePicker: $showsDatePicker)
+//                    .presentationDetents([.height(sizeOfSecondView)])
+//            }
         }
     }
 }
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        let task = Task(coordinators: ["Artyom", "Pavel"],
+        let task = TaskModel(coordinators: ["Artyom", "Pavel"],
                         description: "Some description",
                         id: UUID().uuidString,
                         initiator: "Artyom",

@@ -33,7 +33,7 @@ final class TaskManagerTests: XCTestCase {
         XCTAssert(manager.allTasks.count > 0)
 
         let countBeforeAdd = manager.allTasks.count
-        let testTask = Task()
+        let testTask = TaskModel()
 
         addTaskViewmodel?.addTask(task: testTask)
 

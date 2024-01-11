@@ -8,7 +8,7 @@
 import Foundation
 
 final class APIManager: ObservableObject {
-    @Published var allTasks: [Task] = []
+    @Published var allTasks: [TaskModel] = []
     @Published var userInfo: UserInfoModel?
 
     static let shared = APIManager()
@@ -157,6 +157,8 @@ final class APIManager: ObservableObject {
     }
 
     func addTask(coordinators: [String], description: String, name: String) {
+        add2(coordinators: coordinators, description: description, name: name)
+        return
         let urlString = "https://auth.hci.richardhere.dev/api/v1/add"
         let url = URL(string: urlString)
 
@@ -177,7 +179,8 @@ final class APIManager: ObservableObject {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = requestData
 
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let task = URLSession.shared.dataTask(with: request) { (_, response, error) in
+                print("help")
                 if let error = error {
                     print("Error: \(error)")
                     return
@@ -198,8 +201,48 @@ final class APIManager: ObservableObject {
         }
     }
 
+    func add2(coordinators: [String], description: String, name: String) {
+        Task {
+            let urlString = "https://task.hci.richardhere.dev/task/v1/add"
+            let url = URL(string: urlString)
+
+            struct SendTaskModel: Codable {
+                let coordinators: [String]
+                let description: String
+                let name: String
+            }
+
+            let task = SendTaskModel(coordinators: coordinators, description: description, name: name)
+
+            do {
+                let encoder = JSONEncoder()
+                let requestData = try encoder.encode(task)
+
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.httpBody = requestData
+
+                let (data, response) = try await URLSession.shared.data(for: request)
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        let task = try JSONDecoder().decode(TaskModel.self, from: data)
+                        DispatchQueue.main.async {
+                            self.allTasks.append(task)
+                        }
+                        print("success")
+                    } else {
+                        print("Unexpected status code: \(httpResponse.statusCode)")
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     func approveTask(coordinator: String, taskId: String) {
-        let urlString = "https://auth.hci.richardhere.dev/api/v1/approve/\(coordinator)/\(taskId)"
+        let urlString = "https://task.hci.richardhere.dev/task/v1/approve/\(coordinator)/\(taskId)"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
@@ -227,7 +270,7 @@ final class APIManager: ObservableObject {
     }
 
     func declineTask(coordinator: String, taskId: String) {
-        let urlString = "https://auth.hci.richardhere.dev/api/v1/decline/\(coordinator)/\(taskId)"
+        let urlString = "https://task.hci.richardhere.dev/task/v1/decline/\(coordinator)/\(taskId)"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
@@ -255,7 +298,7 @@ final class APIManager: ObservableObject {
     }
 
     func deleteTask(with id: String) {
-        let urlString = "https://auth.hci.richardhere.dev/api/v1/delete/\(id)"
+        let urlString = "https://task.hci.richardhere.dev/task/v1/delete/\(id)"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
@@ -283,7 +326,7 @@ final class APIManager: ObservableObject {
     }
 
     func getTasks() {
-        let url = URL(string: "https://auth.hci.richardhere.dev/api/v1/tasks")!
+        let url = URL(string: "https://task.hci.richardhere.dev/task/v1/tasks")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -301,10 +344,10 @@ final class APIManager: ObservableObject {
 
             do {
                 let decoder = JSONDecoder()
-                let tasks = try decoder.decode([Task].self, from: data)
+                let tasks = try decoder.decode(Tasks.self, from: data)
 
                 DispatchQueue.main.async {
-                    self.allTasks = tasks
+                    tasks.Tasks.forEach({self.allTasks.append($0)})
                 }
             } catch {
                 print("Error decoding JSON: \(error)")
@@ -314,14 +357,14 @@ final class APIManager: ObservableObject {
         task.resume()
     }
 
-    func getTasksForTest() -> [Task] {
+    func getTasksForTest() -> [TaskModel] {
         let testTasks = [
-            Task(coordinators: ["Artyom", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Artyom", name: "Test 1", next: 1, status: 0, date: Date() - 1),
-            Task(coordinators: ["Artyom"], description: "Some description", id: UUID().uuidString, initiator: "Pavel", name: "Test 2", next: 2, status: 0, date:  Date() - 2),
-            Task(coordinators: ["Richard"], description: "Some description", id: UUID().uuidString, initiator: "Richard", name: "Test 3", next: 4, status: 1, date:  Date()),
-            Task(coordinators: ["Ilya"], description: "Some description", id: UUID().uuidString, initiator: "Pavel", name: "Test 4", next: 5, status: 1, date:  Date() - 5),
-            Task(coordinators: ["Ilya", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Ilya", name: "Test 5", next: 6, status: 2, date:  Date() - 1),
-            Task(coordinators: ["Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Richard", name: "Test 6", next: -1, status: 2, date: Date())
+            TaskModel(coordinators: ["Artyom", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Artyom", name: "Test 1", next: 1, status: 0, date: Date() - 1),
+            TaskModel(coordinators: ["Artyom"], description: "Some description", id: UUID().uuidString, initiator: "Pavel", name: "Test 2", next: 2, status: 0, date:  Date() - 2),
+            TaskModel(coordinators: ["Richard"], description: "Some description", id: UUID().uuidString, initiator: "Richard", name: "Test 3", next: 4, status: 1, date:  Date()),
+            TaskModel(coordinators: ["Ilya"], description: "Some description", id: UUID().uuidString, initiator: "Pavel", name: "Test 4", next: 5, status: 1, date:  Date() - 5),
+            TaskModel(coordinators: ["Ilya", "Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Ilya", name: "Test 5", next: 6, status: 2, date:  Date() - 1),
+            TaskModel(coordinators: ["Pavel"], description: "Some description", id: UUID().uuidString, initiator: "Richard", name: "Test 6", next: -1, status: 2, date: Date())
         ]
 
         return testTasks

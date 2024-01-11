@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task: Codable, Equatable {
+struct TaskModel: Codable, Equatable {
     init(coordinators: [String], description: String, id: String, initiator: String, name: String, next: Int, status: Int, date: Date) {
         self.coordinators = coordinators
         self.description = description
@@ -35,12 +35,22 @@ struct Task: Codable, Equatable {
     var id: String
     var initiator: String
     var name: String
-    var next: Int
+    var next: Int?
     var status: Int
 
-    var date: Date
+    var date: Date?
 }
 
-struct Tasks: Codable {
-    var tasks: [Task]
+struct Tasks: Decodable {
+    var Tasks: [TaskModel]
 }
+
+// struct TaskModel2: Decodable {
+//    let id: String
+//    let name: String
+//    let description: String
+//    let initiator: String
+//    let coordinators: [String]
+//    let next: Int
+//    let status: Int
+// }

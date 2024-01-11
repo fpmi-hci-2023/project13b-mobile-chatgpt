@@ -10,7 +10,7 @@ import SwiftUI
 struct AddTaskView: View {
     @ObservedObject var viewModel = AddTaskViewModel()
     @Binding var showAddTask: Bool
-    @State var task: Task = Task()
+    @State var task: TaskModel = TaskModel()
     @State var tempCoordinator = ""
     @State var showsDatePicker = false
     let dateFormatter: DateFormatter = {
@@ -53,7 +53,7 @@ struct AddTaskView: View {
                     .padding(.leading, 16)
 
                     HStack {
-                        Text("\(dateFormatter.string(from: task.date))")
+                        Text("\(dateFormatter.string(from: task.date ?? Date()))")
                             .padding([.bottom], 16)
                             .padding(.top, 1)
                             .foregroundColor(.white)
@@ -171,10 +171,10 @@ struct AddTaskView: View {
 
             }
             .edgesIgnoringSafeArea(.bottom)
-            .sheet(isPresented: $showsDatePicker) {
-                DatePickerView(selectedDate: $task.date, showDatePicker: $showsDatePicker)
-                    .presentationDetents([.height(sizeOfSecondView)])
-            }
+//            .sheet(isPresented: $showsDatePicker) {
+//                DatePickerView(selectedDate: $task.date ?? Data(), showDatePicker: $showsDatePicker)
+//                    .presentationDetents([.height(sizeOfSecondView)])
+//            }
         }
     }
 }

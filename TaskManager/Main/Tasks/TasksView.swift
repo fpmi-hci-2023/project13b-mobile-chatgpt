@@ -44,9 +44,9 @@ struct TasksView: View {
                     }
 
                     Picker("", selection: $selectedTab) {
-                        Text("In-progress").tag(0)
-                        Text("Approved").tag(1)
-                        Text("Declined").tag(2)
+                        Text("In-progress").tag(1)
+                        Text("Approved").tag(3)
+                        Text("Declined").tag(4)
                     }
                     .pickerStyle(.segmented)
                     .padding(12)
@@ -64,46 +64,34 @@ struct TasksView: View {
                             .contextMenu {
 
                                 switch task.status {
-                                case 0:
+                                case 1:
                                     Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 1)
+                                        changeStatusOfTask(id: task.id, newStatus: 3)
                                     }) {
                                         Text("Approve")
                                         Image(systemName: "checkmark")
                                     }
 
                                     Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 2)
+                                        changeStatusOfTask(id: task.id, newStatus: 4)
                                     }) {
                                         Text("Decline")
                                         Image(systemName: "xmark")
                                     }
 
-                                case 1:
-                                    Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 0)
-                                    }) {
-                                        Text("To in-progress")
-                                        Image(systemName: "clock")
-                                    }
+                                case 3:
 
                                     Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 2)
+                                        changeStatusOfTask(id: task.id, newStatus: 4)
                                     }) {
                                         Text("Decline")
                                         Image(systemName: "xmark")
                                     }
 
-                                case 2:
-                                    Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 0)
-                                    }) {
-                                        Text("To in-progress")
-                                        Image(systemName: "clock")
-                                    }
+                                case 4:
 
                                     Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 1)
+                                        changeStatusOfTask(id: task.id, newStatus: 3)
                                     }) {
                                         Text("Approve")
                                         Image(systemName: "checkmark")
