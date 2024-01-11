@@ -62,9 +62,7 @@ struct TasksView: View {
                             .background(.white)
                             .cornerRadius(10)
                             .contextMenu {
-
-                                switch task.status {
-                                case 1:
+                                if task.status == 1 {
                                     Button(action: {
                                         changeStatusOfTask(id: task.id, newStatus: 3)
                                     }) {
@@ -78,27 +76,6 @@ struct TasksView: View {
                                         Text("Decline")
                                         Image(systemName: "xmark")
                                     }
-
-                                case 3:
-
-                                    Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 4)
-                                    }) {
-                                        Text("Decline")
-                                        Image(systemName: "xmark")
-                                    }
-
-                                case 4:
-
-                                    Button(action: {
-                                        changeStatusOfTask(id: task.id, newStatus: 3)
-                                    }) {
-                                        Text("Approve")
-                                        Image(systemName: "checkmark")
-                                    }
-
-                                default:
-                                    Button(action: { }) { }
                                 }
 
                                 Button(action: {
